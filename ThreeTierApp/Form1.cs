@@ -13,9 +13,9 @@ namespace ThreeTierApp
 {
     public partial class Form1 : Form
     {
-
         private readonly BusinessLayer businessLayer;
         private DataTable currentDataTable;
+        private readonly string connectionString;
 
         public Form1()
         {
@@ -31,10 +31,8 @@ namespace ThreeTierApp
             InitializeComponent();
 
             // Use the connection string built with SqlConnectionStringBuilder
-            string connectionString = cs.ConnectionString;
+            connectionString = cs.ConnectionString;
             businessLayer = new BusinessLayer(connectionString);
-
-            LoadStudentsData(); // Load students data initially
         }
         private void LoadStudentsData()
         {
@@ -65,10 +63,43 @@ namespace ThreeTierApp
         }
 
         
-
         private void Form1_Load(object sender, EventArgs e)
         {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                bool shouldExit = true;
 
+                try
+                {
+                    connection.Open();
+
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        shouldExit = false;
+
+                        MessageBox.Show("Connection successful. State: " + connection.State);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Connection failed. State: " + connection.State);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+                if (shouldExit)
+                {
+                    // Exit the application if connection is not established
+                    Environment.Exit(1);
+                }
+            }
+        }
+
+        private void btnShowStudents_Click(object sender, EventArgs e)
+        {
+            LoadStudentsData(); // Load students data
         }
 
 
