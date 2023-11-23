@@ -17,11 +17,18 @@ namespace ThreeTierApp
             connection = new SqlConnection(connectionString);
         }
 
+        public SqlDataAdapter GetStudentsSDA()
+        {
+            return new SqlDataAdapter("SELECT * FROM Students", connection);
+        }
+
         public DataTable GetStudents()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Students", connection);
+            SqlDataAdapter adapter = GetStudentsSDA();
             DataTable dataTable = new DataTable();
+
             adapter.Fill(dataTable);
+
             return dataTable;
         }
 

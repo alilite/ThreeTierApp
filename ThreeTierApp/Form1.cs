@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -15,7 +16,17 @@ namespace ThreeTierApp
     {
         private readonly BusinessLayer businessLayer;
         private DataTable currentDataTable = new DataTable();
+        private SqlDataAdapter sqlDataAdapter;
         private readonly string connectionString;
+        private enum STATES
+        {
+            STUDENTS,
+            PROGRAMS,
+            COURSES,
+            ENROLLMENTS
+        }
+        private STATES selectedState;
+        private bool isSystemUpdating = false;
 
         public Form1()
         {
@@ -35,11 +46,62 @@ namespace ThreeTierApp
             businessLayer = new BusinessLayer(connectionString);
         }
 
+        private void SetupCommand(SqlDataAdapter dataAdapter)
+        {
+            // Setting up commands for updating the database
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+
+            dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
+            dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
+            dataAdapter.DeleteCommand = commandBuilder.GetDeleteCommand();
+
+        }
+
+        // Update the database with changes from the DataTable
+        private void CurrentDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            if (isSystemUpdating)
+            {
+                return;
+            }
+
+            sqlDataAdapter.Update(currentDataTable);
+
+            // Refresh data grid view automatically
+            switch (selectedState)
+            {
+                case STATES.STUDENTS:
+                    LoadStudentsData(); break;
+                case STATES.PROGRAMS:
+                    LoadProgramsData(); break;
+                case STATES.COURSES:
+                    LoadCoursesData(); break;
+                case STATES.ENROLLMENTS:
+                    LoadEnrollementsData(); break;
+                default: break;
+            }
+        }
+
         private void LoadStudentsData()
         {
+            isSystemUpdating = true;
+
+            sqlDataAdapter = businessLayer.GetStudentsSDA();
+
+            SetupCommand(sqlDataAdapter);
+
             currentDataTable.Reset();
+
             currentDataTable = businessLayer.GetStudents();
+
+            // Attach the RowChanged event handler
+            currentDataTable.RowChanged += CurrentDataTable_RowChanged;
+
+            //sqlDataAdapter.Fill(currentDataTable); // just for test to make sure duplicate entries get updated automatically
+
             dataGridView1.DataSource = currentDataTable;
+
+            isSystemUpdating = false;
         }
 
         private void LoadCoursesData()
@@ -100,21 +162,29 @@ namespace ThreeTierApp
 
         private void btnShowStudents_Click(object sender, EventArgs e)
         {
+            selectedState = STATES.STUDENTS;
+
             LoadStudentsData(); // Load students data
         }
 
         private void btnShowPrograms_Click_1(object sender, EventArgs e)
         {
+            selectedState = STATES.PROGRAMS;
+
             LoadProgramsData(); // Load programs data
         }
 
         private void btnShowCourses_Click(object sender, EventArgs e)
         {
+            selectedState = STATES.COURSES;
+
             LoadCoursesData(); // Load courses data
         }
 
         private void btnShowEnrollments_Click(object sender, EventArgs e)
         {
+            selectedState = STATES.ENROLLMENTS;
+
             LoadEnrollementsData(); // Load enrollments data
         }
 
