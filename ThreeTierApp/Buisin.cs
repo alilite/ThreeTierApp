@@ -17,40 +17,68 @@ namespace ThreeTierApp
             connection = new SqlConnection(connectionString);
         }
 
+        public SqlDataAdapter GetStudentsSDA()
+        {
+            return new SqlDataAdapter("SELECT * FROM Students", connection);
+        }
+
         public DataTable GetStudents()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Students", connection);
+            SqlDataAdapter adapter = GetStudentsSDA();
             DataTable dataTable = new DataTable();
+
             adapter.Fill(dataTable);
+
             return dataTable;
         }
 
-        public DataTable GetEnrollments()
+        public SqlDataAdapter GetEnrollmentsSDA()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter(
+            return new SqlDataAdapter(
                 "SELECT E.StId, StName, E.CId, CName, FinalGrade, S.ProgId, ProgName " +
                 "FROM Enrollments E " +
                 "JOIN Students S ON E.StId = S.StId " +
                 "JOIN Courses C ON E.CId = C.CId " +
                 "JOIN Programs P ON S.ProgId = P.ProgId", connection);
+        }
+
+        public DataTable GetEnrollments()
+        {
+            SqlDataAdapter adapter = GetEnrollmentsSDA();
             DataTable dataTable = new DataTable();
+
             adapter.Fill(dataTable);
+
             return dataTable;
+        }
+
+        public SqlDataAdapter GetCoursesSDA()
+        {
+            return new SqlDataAdapter("SELECT * FROM Courses", connection);
         }
 
         public DataTable GetCourses()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Courses", connection);
+            SqlDataAdapter adapter = GetCoursesSDA();
             DataTable dataTable = new DataTable();
+
             adapter.Fill(dataTable);
+
             return dataTable;
+        }
+
+        public SqlDataAdapter GetProgramsSDA()
+        {
+            return new SqlDataAdapter("SELECT * FROM Programs", connection);
         }
 
         public DataTable GetPrograms()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Programs", connection);
+            SqlDataAdapter adapter = GetProgramsSDA();
             DataTable dataTable = new DataTable();
+
             adapter.Fill(dataTable);
+
             return dataTable;
         }
 
