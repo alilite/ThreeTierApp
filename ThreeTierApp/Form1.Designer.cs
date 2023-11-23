@@ -32,6 +32,7 @@
             this.btnShowCourses = new System.Windows.Forms.Button();
             this.btnShowPrograms = new System.Windows.Forms.Button();
             this.btnShowStudents = new System.Windows.Forms.Button();
+            this.btnShowEnrollments = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,12 +44,12 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(608, 299);
+            this.dataGridView1.Size = new System.Drawing.Size(753, 299);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnShowCourses
             // 
-            this.btnShowCourses.Location = new System.Drawing.Point(274, 306);
+            this.btnShowCourses.Location = new System.Drawing.Point(412, 306);
             this.btnShowCourses.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnShowCourses.Name = "btnShowCourses";
             this.btnShowCourses.Size = new System.Drawing.Size(113, 37);
@@ -59,7 +60,7 @@
             // 
             // btnShowPrograms
             // 
-            this.btnShowPrograms.Location = new System.Drawing.Point(141, 306);
+            this.btnShowPrograms.Location = new System.Drawing.Point(207, 306);
             this.btnShowPrograms.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnShowPrograms.Name = "btnShowPrograms";
             this.btnShowPrograms.Size = new System.Drawing.Size(113, 37);
@@ -78,11 +79,22 @@
             this.btnShowStudents.UseVisualStyleBackColor = true;
             this.btnShowStudents.Click += new System.EventHandler(this.btnShowStudents_Click);
             // 
+            // btnShowEnrollments
+            // 
+            this.btnShowEnrollments.Location = new System.Drawing.Point(613, 306);
+            this.btnShowEnrollments.Name = "btnShowEnrollments";
+            this.btnShowEnrollments.Size = new System.Drawing.Size(113, 37);
+            this.btnShowEnrollments.TabIndex = 4;
+            this.btnShowEnrollments.Text = "Show Enrollments";
+            this.btnShowEnrollments.UseVisualStyleBackColor = true;
+            this.btnShowEnrollments.Click += new System.EventHandler(this.btnShowEnrollments_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 412);
+            this.ClientSize = new System.Drawing.Size(754, 412);
+            this.Controls.Add(this.btnShowEnrollments);
             this.Controls.Add(this.btnShowStudents);
             this.Controls.Add(this.btnShowPrograms);
             this.Controls.Add(this.btnShowCourses);
@@ -102,6 +114,7 @@
         private System.Windows.Forms.Button btnShowCourses;
         private System.Windows.Forms.Button btnShowPrograms;
         private System.Windows.Forms.Button btnShowStudents;
+        private System.Windows.Forms.Button btnShowEnrollments;
     }
 }
 

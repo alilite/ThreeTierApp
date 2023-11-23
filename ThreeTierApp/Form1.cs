@@ -55,7 +55,14 @@ namespace ThreeTierApp
             currentDataTable = businessLayer.GetPrograms();
             dataGridView1.DataSource = currentDataTable;
         }
-        
+
+        private void LoadEnrollementsData()
+        {
+            currentDataTable.Reset();
+            currentDataTable = businessLayer.GetEnrollments();
+            dataGridView1.DataSource = currentDataTable;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // Checking sql connection on form load to make sure it's established
@@ -104,6 +111,11 @@ namespace ThreeTierApp
         private void btnShowCourses_Click(object sender, EventArgs e)
         {
             LoadCoursesData(); // Load courses data
+        }
+
+        private void btnShowEnrollments_Click(object sender, EventArgs e)
+        {
+            LoadEnrollementsData(); // Load enrollments data
         }
 
         // ... (other methods and event handlers)
