@@ -31,13 +31,13 @@ namespace ThreeTierApp
         public Form1()
         {
             SqlConnectionStringBuilder cs = new SqlConnectionStringBuilder();
-            //cs.DataSource = "(local)";
-            //cs.InitialCatalog = "College1en";
-            //cs.UserID = "sa";
-            //cs.Password = "sysadm";
-            cs.DataSource = "(localdb)\\mssqllocaldb";
+            cs.DataSource = "(local)";
             cs.InitialCatalog = "College1en";
-            cs.IntegratedSecurity = true; // Using windows authentication
+            cs.UserID = "sa";
+            cs.Password = "sysadm";
+            //cs.DataSource = "(localdb)\\mssqllocaldb";
+            //cs.InitialCatalog = "College1en";
+            //cs.IntegratedSecurity = true; // Using windows authentication
 
             InitializeComponent();
 
