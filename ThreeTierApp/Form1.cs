@@ -106,16 +106,46 @@ namespace ThreeTierApp
 
         private void LoadCoursesData()
         {
+            isSystemUpdating = true;
+
+            sqlDataAdapter = businessLayer.GetCoursesSDA();
+
+            SetupCommand(sqlDataAdapter);
+
             currentDataTable.Reset();
+
             currentDataTable = businessLayer.GetCourses();
+
+            // Attach the RowChanged event handler
+            currentDataTable.RowChanged += CurrentDataTable_RowChanged;
+
+            //sqlDataAdapter.Fill(currentDataTable); // just for test to make sure duplicate entries get updated automatically
+
             dataGridView1.DataSource = currentDataTable;
+
+            isSystemUpdating = false;
         }
 
         private void LoadProgramsData()
         {
+            isSystemUpdating = true;
+
+            sqlDataAdapter = businessLayer.GetProgramsSDA();
+
+            SetupCommand(sqlDataAdapter);
+
             currentDataTable.Reset();
+
             currentDataTable = businessLayer.GetPrograms();
+
+            // Attach the RowChanged event handler
+            currentDataTable.RowChanged += CurrentDataTable_RowChanged;
+
+            //sqlDataAdapter.Fill(currentDataTable); // just for test to make sure duplicate entries get updated automatically
+
             dataGridView1.DataSource = currentDataTable;
+
+            isSystemUpdating = false;
         }
 
         private void LoadEnrollementsData()
