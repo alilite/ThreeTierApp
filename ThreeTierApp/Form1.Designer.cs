@@ -38,7 +38,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(-4, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 2);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -48,29 +48,31 @@
             // 
             // btnShowCourses
             // 
-            this.btnShowCourses.Location = new System.Drawing.Point(308, 306);
+            this.btnShowCourses.Location = new System.Drawing.Point(274, 306);
             this.btnShowCourses.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnShowCourses.Name = "btnShowCourses";
-            this.btnShowCourses.Size = new System.Drawing.Size(87, 37);
+            this.btnShowCourses.Size = new System.Drawing.Size(113, 37);
             this.btnShowCourses.TabIndex = 1;
-            this.btnShowCourses.Text = "showcourse";
+            this.btnShowCourses.Text = "Show Courses";
             this.btnShowCourses.UseVisualStyleBackColor = true;
+            this.btnShowCourses.Click += new System.EventHandler(this.btnShowCourses_Click);
             // 
             // btnShowPrograms
             // 
-            this.btnShowPrograms.Location = new System.Drawing.Point(130, 306);
+            this.btnShowPrograms.Location = new System.Drawing.Point(141, 306);
             this.btnShowPrograms.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnShowPrograms.Name = "btnShowPrograms";
-            this.btnShowPrograms.Size = new System.Drawing.Size(87, 37);
+            this.btnShowPrograms.Size = new System.Drawing.Size(113, 37);
             this.btnShowPrograms.TabIndex = 2;
-            this.btnShowPrograms.Text = "showprogram";
+            this.btnShowPrograms.Text = "Show Programs";
             this.btnShowPrograms.UseVisualStyleBackColor = true;
+            this.btnShowPrograms.Click += new System.EventHandler(this.btnShowPrograms_Click_1);
             // 
             // btnShowStudents
             // 
             this.btnShowStudents.Location = new System.Drawing.Point(12, 306);
             this.btnShowStudents.Name = "btnShowStudents";
-            this.btnShowStudents.Size = new System.Drawing.Size(87, 37);
+            this.btnShowStudents.Size = new System.Drawing.Size(113, 37);
             this.btnShowStudents.TabIndex = 3;
             this.btnShowStudents.Text = "Show Students";
             this.btnShowStudents.UseVisualStyleBackColor = true;

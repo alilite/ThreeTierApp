@@ -14,7 +14,7 @@ namespace ThreeTierApp
     public partial class Form1 : Form
     {
         private readonly BusinessLayer businessLayer;
-        private DataTable currentDataTable;
+        private DataTable currentDataTable = new DataTable();
         private readonly string connectionString;
 
         public Form1()
@@ -34,37 +34,31 @@ namespace ThreeTierApp
             connectionString = cs.ConnectionString;
             businessLayer = new BusinessLayer(connectionString);
         }
+
         private void LoadStudentsData()
         {
+            currentDataTable.Reset();
             currentDataTable = businessLayer.GetStudents();
             dataGridView1.DataSource = currentDataTable;
         }
 
         private void LoadCoursesData()
         {
+            currentDataTable.Reset();
             currentDataTable = businessLayer.GetCourses();
             dataGridView1.DataSource = currentDataTable;
         }
 
         private void LoadProgramsData()
         {
+            currentDataTable.Reset();
             currentDataTable = businessLayer.GetPrograms();
             dataGridView1.DataSource = currentDataTable;
         }
-
-        private void btnShowCourses_Click(object sender, EventArgs e)
-        {
-            LoadCoursesData();
-        }
-
-        private void btnShowPrograms_Click(object sender, EventArgs e)
-        {
-            LoadProgramsData();
-        }
-
         
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Checking sql connection on form load to make sure it's established
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 bool shouldExit = true;
@@ -102,8 +96,15 @@ namespace ThreeTierApp
             LoadStudentsData(); // Load students data
         }
 
+        private void btnShowPrograms_Click_1(object sender, EventArgs e)
+        {
+            LoadProgramsData(); // Load programs data
+        }
 
-
+        private void btnShowCourses_Click(object sender, EventArgs e)
+        {
+            LoadCoursesData(); // Load courses data
+        }
 
         // ... (other methods and event handlers)
     }
